@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BANC+ dates</title>
+<style>
+:root{--bg:#eef3f8;--card:#fff;--ink:#14213d;--mut:#5f6f86;--acc:#3a6ea5;--rose:#c9506b;--line:#d6e0ec;--soft:#dde8f3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1424;--card:#142036;--ink:#e6edf7;--mut:#93a4bd;--acc:#7fb0e6;--rose:#ef7f99;--line:#26385a;--soft:#1c2c4a}}
+:root[data-theme="dark"]{--bg:#0c1424;--card:#142036;--ink:#e6edf7;--mut:#93a4bd;--acc:#7fb0e6;--rose:#ef7f99;--line:#26385a;--soft:#1c2c4a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums}
+main{max-width:520px;margin:0 auto;padding:16px}
+h1{font:600 1.6rem/1.2 Georgia,"Iowan Old Style",serif;margin:8px 0 2px}
+.sub{color:var(--mut);font-size:.85rem;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+label{display:block;font-size:.85rem;color:var(--mut);margin-bottom:4px}
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:44px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+h2{font-size:1rem;margin:14px 0 8px}
+summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:var(--mut);font-size:.9rem}
+.hero{text-align:center;padding:20px 12px}
+.ringw{position:relative;width:min(100%,280px);margin:0 auto}
+svg{display:block;width:100%;height:auto}
+.trk{fill:none;stroke:var(--soft);stroke-width:12}
+.prg{fill:none;stroke:var(--acc);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.22,.8,.25,1)}
+.dot{transition:fill .4s,r .4s}
+.ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.ctr small{color:var(--mut);font-size:.8rem}
+.ctr b{font:600 2.1rem/1.1 Georgia,"Iowan Old Style",serif;color:var(--ink)}
+.ctr span{color:var(--rose);font-size:.85rem;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.stats b{display:block;font:600 1.3rem/1.2 Georgia,serif}
+.stats span{font-size:.75rem;color:var(--mut)}
+.note{border-left:4px solid var(--rose);background:var(--soft);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:.9rem;text-align:left}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--soft);padding:4px;border-radius:12px;margin-top:8px}
+.seg button{font:inherit;font-size:.85rem;border:0;border-radius:9px;padding:10px 6px;min-height:44px;background:transparent;color:var(--mut);cursor:pointer;transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);font-weight:600}
+.tl{position:relative;padding-left:26px}
+.rail{position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--line);transform-origin:top}
+.it{position:relative;padding:8px 0 14px}
+.it::before{content:"";position:absolute;left:-24px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--acc)}
+.it[data-s="past"]{opacity:.55}
+.it[data-s="past"]::before{background:var(--acc)}
+.it[data-s="next"]::before{background:var(--rose);border-color:var(--rose);animation:pulse 2s infinite}
+.wk{font-size:.8rem;color:var(--mut)}
+.d{font:600 1.15rem/1.3 Georgia,"Iowan Old Style",serif}
+.r{font-size:.82rem;color:var(--mut)}
+.it[data-s="next"] .r{color:var(--rose);font-weight:600}
+.anim .it{animation:rise .55s cubic-bezier(.22,.8,.25,1) both;animation-delay:calc(var(--i)*80ms)}
+.anim .rail{animation:grow .9s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+@keyframes grow{from{transform:scaleY(0)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,80,107,.5)}70%{box-shadow:0 0 0 9px rgba(201,80,107,0)}100%{box-shadow:0 0 0 0 rgba(201,80,107,0)}}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
+.small{font-size:.8rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<h1>Pregnancy dates</h1>
+<p class="sub">LMP, ultrasound, EDD and follow-up visits, following the South African BANC+ schedule (guideline of 23 Oct 2024).</p>
+
+<div class="card">
+  <label for="lmp">First day of last menstrual period (LMP)</label>
+  <input type="date" id="lmp">
+  <h2>Ultrasound scan (optional)</h2>
+  <div class="g3">
+    <div><label for="sd">Scan date</label><input type="date" id="sd"></div>
+    <div><label for="sw">Weeks</label><input type="number" id="sw" min="4" max="42" inputmode="numeric"></div>
+    <div><label for="sdays">Days</label><input type="number" id="sdays" min="0" max="6" inputmode="numeric"></div>
+  </div>
+  <details><summary>Dating details</summary>
+    <div class="g2">
+      <div><label for="cert">Menstrual dates</label><select id="cert"><option value="1">Certain</option><option value="0">Uncertain</option></select></div>
+      <div><label for="ivf">Conception</label><select id="ivf"><option value="0">Natural</option><option value="1">IVF</option></select></div>
+    </div>
+    <div style="margin-top:10px"><label for="ept">Positive pregnancy test soon after first missed period?</label><select id="ept"><option value="1">Yes</option><option value="0">No or unknown</option></select></div>
+  </details>
+  <div style="margin-top:8px"><label for="today">Today</label><input type="date" id="today"></div>
+</div>
+
+<div class="card hero">
+  <div class="ringw">
+    <svg viewBox="0 0 220 220" aria-hidden="true">
+      <circle class="trk" cx="110" cy="110" r="90"/>
+      <circle class="prg" id="prg" cx="110" cy="110" r="90" transform="rotate(-90 110 110)" stroke-dasharray="565.5" stroke-dashoffset="565.5"/>
+      <g id="dots"></g>
+    </svg>
+    <div class="ctr" id="ctr"><small>Expected delivery</small><b>-</b></div>
+  </div>
+  <div class="stats">
+    <div><b id="sGa">-</b><span>weeks + days</span></div>
+    <div><b id="sLeft">-</b><span>days to EDD</span></div>
+    <div><b id="sNext">-</b><span>next visit</span></div>
+  </div>
+  <div id="adv"></div>
+  <div id="basis"></div>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Follow-up visits</h2>
+  <div id="tl"><p class="small">Dates appear once you enter an LMP or a scan.</p></div>
+</div>
+<p class="small">Booking is ideally before 14 weeks; visits are "around" the target week. Not a substitute for clinical judgement; check the current guideline. Nothing you enter is saved.</p>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const C=565.5,WK=[20,26,30,34,36,38,40];
+const iso=d=>{const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())};
+const pd=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d,12)};
+const add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const dd=(a,b)=>Math.round((a-b)/864e5);
+const fmt=(d,o)=>d.toLocaleDateString("en-ZA",o||{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+$("today").value=iso(new Date());
+const S={manual:null,key:"",shown:{}};
+
+function tween(el,to,f){
+  const from=S.shown[el.id]||0;S.shown[el.id]=to;
+  if(RM||from===to){el.textContent=f(to);return}
+  const t0=performance.now();
+  (function s(t){const p=Math.min(1,(t-t0)/800),e=1-Math.pow(1-p,3);el.textContent=f(Math.round(from+(to-from)*e));if(p<1)requestAnimationFrame(s)})(t0);
+}
+
+function advice(lmpEdd,usEdd,g){
+  const cert=$("cert").value==="1",ivf=$("ivf").value==="1",ept=$("ept").value==="1",diff=dd(usEdd,lmpEdd);
+  let t,use=null;
+  if(ivf){t="IVF pregnancy: never re-date from ultrasound.";use="lmp"}
+  else if(g>=168){t="Ultrasound dating is not accurate after 24 weeks. Provisionally assign the scan EDD and ask the doctor for a working EDD.";}
+  else{
+    const m=g<98?7:14;
+    if(Math.abs(diff)<=m){t=`Scan and LMP agree within ${m} days: keep the LMP EDD.`;use="lmp"}
+    else if(g<98){
+      if(!cert||diff<0){t="Uncertain dates, or scan larger than LMP: re-date from the scan and confirm at 18-22 weeks.";use="us"}
+      else if(ept){t="Scan smaller than LMP with an early positive test: do not re-date. Treat as early IUGR and review in a few weeks.";use="lmp"}
+      else{t="Scan smaller than LMP and no early test: re-date from CRL.";use="us"}
+    }else{
+      if(!cert){t="Uncertain dates and over 14 days apart before 24 weeks: use the scan EDD.";use="us"}
+      else if(diff>0){
+        if(ept){t="Scan smaller than LMP with an early positive test: consider early IUGR, review in 2-3 weeks and do Doppler.";use="lmp"}
+        else{t="Scan smaller than LMP, no early test: re-date from the scan if there is no abnormality or asymmetry and placenta and liquor are normal.";use="us"}
+      }else t="Certain dates but scan larger by over 14 days: the guideline gives no rule. Ask the doctor or a fetal maternal unit."
+    }
+  }
+  return {t,use,diff};
+}
+
+function render(){
+  const l=$("lmp").value,sd=$("sd").value,sw=parseInt($("sw").value),sdy=parseInt($("sdays").value)||0,td=$("today").value;
+  const hasL=!!l,hasS=!!sd&&!isNaN(sw);
+  if(!td||(!hasL&&!hasS)){
+    $("prg").style.strokeDashoffset=C;$("dots").innerHTML="";
+    $("ctr").innerHTML="<small>Expected delivery</small><b>-</b>";
+    ["sGa","sLeft","sNext"].forEach(i=>$(i).textContent="-");S.shown={};
+    $("adv").innerHTML="";$("basis").innerHTML="";
+    $("tl").innerHTML='<p class="small">Dates appear once you enter an LMP or a scan.</p>';S.key="";return;
+  }
+  const today=pd(td),g=hasS?sw*7+sdy:0;
+  const lmpStart=hasL?pd(l):null,lmpEdd=hasL?add(lmpStart,280):null;
+  const usStart=hasS?add(pd(sd),-g):null,usEdd=hasS?add(usStart,280):null;
+  let basis=hasL?"lmp":"us",advHtml="";
+  if(hasL&&hasS){
+    const a=advice(lmpEdd,usEdd,g);
+    basis=S.manual||a.use||"lmp";
+    advHtml=`<div class="note"><b>Scan EDD ${fmt(usEdd,{day:"numeric",month:"short",year:"numeric"})}</b>, ${Math.abs(a.diff)} days ${a.diff>=0?"after":"before"} the LMP EDD.<br>${a.t}</div>`;
+    $("basis").innerHTML=`<div class="seg"><button data-b="lmp" aria-pressed="${basis==="lmp"}">From LMP<br><small>${fmt(lmpEdd,{day:"numeric",month:"short"})}</small></button><button data-b="us" aria-pressed="${basis==="us"}">From scan<br><small>${fmt(usEdd,{day:"numeric",month:"short"})}</small></button></div><p class="small">The first estimate should stay unless important new information appears.</p>`;
+    document.querySelectorAll("#basis button").forEach(b=>b.onclick=()=>{S.manual=b.dataset.b;render()});
+  }else{
+    $("basis").innerHTML="";
+    if(hasS&&g>=168)advHtml='<div class="note">Scan dating after 24 weeks is not accurate. Ask the doctor for a working EDD.</div>';
+  }
+  $("adv").innerHTML=advHtml;
+  const start=basis==="us"?usStart:lmpStart,edd=add(start,280);
+  const ga=dd(today,start),left=dd(edd,today);
+  if(ga<0)$("adv").innerHTML+='<div class="note">These dates are in the future. Check the LMP or scan date.</div>';
+  else if(ga>=287)$("adv").innerHTML+='<div class="note"><b>41 weeks or more.</b> Certain dates: stretch and sweep and refer for induction within 3 days. Unsure dates: careful fetal surveillance.</div>';
+  $("prg").style.strokeDashoffset=C*(1-Math.max(0,Math.min(1,ga/280)));
+  $("dots").innerHTML=[14,...WK].map(w=>{const a=(w/40)*2*Math.PI-Math.PI/2,x=110+90*Math.cos(a),y=110+90*Math.sin(a);return `<circle class="dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${ga>=w*7?5:4}" fill="${ga>=w*7?"var(--card)":"var(--mut)"}" stroke="${ga>=w*7?"var(--acc)":"none"}" stroke-width="2.5"/>`}).join("");
+  $("ctr").innerHTML=`<small>Expected delivery</small><b>${fmt(edd,{day:"numeric",month:"short"})}</b><span>${fmt(edd,{weekday:"long"})} ${edd.getFullYear()}</span>`;
+  const gw=Math.floor(Math.max(0,ga)/7),gd=Math.max(0,ga)%7;
+  tween($("sGa"),Math.max(0,ga),n=>Math.floor(n/7)+"+"+(n%7));
+  tween($("sLeft"),Math.max(0,left),n=>String(n));
+  const V=[{lab:"Booking",sub:"ideally before 14 weeks",dt:add(start,98),pre:"By "},...WK.map(w=>({lab:w+" weeks",sub:(w==36||w==40)?"short visit":"",dt:add(start,w*7),pre:"Around "})),{lab:"41 weeks",sub:"hospital clinic, if still pregnant",dt:add(start,287),pre:"Around "}];
+  const nx=V.findIndex((v,i)=>dd(v.dt,today)>=-3&&!(i===0&&ga>98));
+  $("sNext").textContent=nx<0?"-":V[nx].lab.replace(" weeks"," wks");
+  const key=iso(start),anim=key!==S.key;S.key=key;
+  $("tl").innerHTML=`<div class="tl${anim?" anim":""}"><div class="rail"></div>`+V.map((v,i)=>{
+    const df=dd(v.dt,today),s=i===nx?"next":(df<-3?"past":"up");
+    const r=s==="next"?(df<=0?"due now":"next visit, in "+df+" days"):(df<0?Math.abs(df)+" days ago":"in "+df+" days");
+    return `<div class="it" data-s="${s}" style="--i:${i}"><div class="wk">${v.lab}${v.sub?" · "+v.sub:""}</div><div class="d">${v.pre}${fmt(v.dt)}</div><div class="r">${r}</div></div>`;
+  }).join("")+"</div>";
+}
+["lmp","sd","sw","sdays","cert","ivf","ept","today"].forEach(i=>$(i).addEventListener("input",()=>{if(i!=="today")S.manual=null;render()}));
+render();
+</script>
+</body>
+</html>
